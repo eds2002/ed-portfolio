@@ -59,6 +59,7 @@ function Row({ images }: { images: CaseStudy["galleries"][0] }) {
               layout="fill"
               objectFit="contain"
               alt={image.alt}
+              priority
             />
           </motion.div>
         ))}
@@ -116,6 +117,7 @@ function Banner({ banner }: { banner: CaseStudy["galleries"][0] }) {
             objectFit="contain"
             layout="fill"
             className="object-center object-cover w-full h-full "
+            priority
           />
         </div>
       );
@@ -140,6 +142,7 @@ function Banner({ banner }: { banner: CaseStudy["galleries"][0] }) {
           objectFit="cover"
           layout="fill"
           className="object-center object-cover w-full h-full "
+          priority
         />
       </motion.div>
     </section>
@@ -171,6 +174,7 @@ function DefaultContainer({
             layout="fill"
             objectFit="contain"
             alt={image.images[0].alt}
+            priority
           />
         </div>
       </Container>
