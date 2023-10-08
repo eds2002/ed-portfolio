@@ -20,7 +20,7 @@ const caseStudy = {
       options: {
         source: "title",
         maxLength: 96,
-        slugify: (input: string) => slugFn(input),
+        // slugify: (input: string) => slugFn(input),
       },
     },
     {
