@@ -12,9 +12,7 @@ export default function Form() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    alert("yo");
-  };
+  const onSubmit = (data: any) => {};
   return (
     <Section className="max-w-6xl mx-auto">
       <Container className="grid grid-cols-1 md:grid-cols-3 gap-24 ">

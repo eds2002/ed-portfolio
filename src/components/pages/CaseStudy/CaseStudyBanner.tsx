@@ -14,10 +14,10 @@ export default function CaseStudyBanner({
       <Container className="relative rounded-3xl overflow-hidden aspect-[16/8]  max-w-7xl px-4 sm:px-6 lg:px-8 ">
         <div className="relative w-full h-full rounded-3xl overflow-hidden">
           <Image
-            src={banner.url}
+            src={banner?.url ?? ""}
             layout="fill"
             objectFit="cover"
-            alt={banner.alt ?? ""}
+            alt={banner?.alt ?? ""}
           />
         </div>
       </Container>
