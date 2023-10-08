@@ -4,7 +4,9 @@ import Typography from "@/components/elements/Typography";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import RoundedCircle from "@/components/misc/RoundedCircle";
-import { useAnimate, useScroll, useTransform } from "framer-motion";
+import usePalette from "@/hooks/usePallete";
+import clsx from "clsx";
+import { useScroll, useTransform } from "framer-motion";
 
 export default function Footer() {
   const { scrollYProgress } = useScroll();
@@ -15,7 +17,7 @@ export default function Footer() {
       className="bg-black h-screen flex items-center justify-center flex-col relative"
     >
       <RoundedCircle
-        className="z-50 bg-white  shadow-black shadow-2xl "
+        className={clsx("z-50 bg-white  shadow-black shadow-2xl ")}
         position="top"
         style={{
           height,

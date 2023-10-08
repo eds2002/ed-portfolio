@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { usePalette } from "react-palette";
 import Image from "next/image";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
@@ -8,17 +7,18 @@ import { CaseStudy } from "@/types/CaseStudy/interface";
 import Typography from "@/components/elements/Typography";
 import { motion, useScroll, useTransform } from "framer-motion";
 import useAnimation from "@/hooks/useAnimation";
+import usePalette from "@/hooks/usePallete";
 
 function Row({ images }: { images: CaseStudy["galleries"][0] }) {
-  const { data } = usePalette(images.images[0].url);
+  const { extractedColors, error } = usePalette(images.images[0].url);
   const ref = React.useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const imageOne = useTransform(scrollYProgress, [0, 1], ["50%", "-50%"]);
-  const imageTwo = useTransform(scrollYProgress, [0, 1], ["-50%", "50%"]);
+  const imageOne = useTransform(scrollYProgress, [0, 1], ["25%", "-25%"]);
+  const imageTwo = useTransform(scrollYProgress, [0, 1], ["-25%", "25%"]);
 
   const { animate } = useAnimation();
   function getTranslateY(index: number, length: number) {
@@ -41,14 +41,14 @@ function Row({ images }: { images: CaseStudy["galleries"][0] }) {
     <Section
       className="h-full"
       style={{
-        backgroundColor: data.lightMuted + "50",
+        backgroundColor: error ? "" : extractedColors?.[1] + "25",
       }}
       ref={ref}
     >
-      <Container className=" max-h-screen max-w-7xl relative flex flex-row">
+      <Container className=" max-h-screen max-w-6xl relative flex flex-row  items-center">
         {images.images.map((image, index, self) => (
           <motion.div
-            className="relative w-full  aspect-[9/16]   overflow-hidden"
+            className="relative w-full  aspect-[9/16]   overflow-hidden "
             key={index}
             style={{
               translateY: getTranslateY(index, self.length),
@@ -79,15 +79,15 @@ function Banner({ banner }: { banner: CaseStudy["galleries"][0] }) {
     [0, 0.5, 1],
     ["-25%", "0%", "25%"]
   );
-  const { data, loading, error } = usePalette(banner.images[0].url);
+  // const { data, loading, error } = usePalette(banner.images[0].url);
 
   const { animate } = useAnimation();
-  const colorData = React.useMemo(() => {
-    if (loading || error) {
-      return "white";
-    }
-    return data.lightMuted;
-  }, [data, loading, error]);
+  // const colorData = React.useMemo(() => {
+  //   if (loading || error) {
+  //     return "white";
+  //   }
+  //   return data.lightMuted;
+  // }, [data, loading, error]);
 
   const CaptionOrImage = React.useCallback(() => {
     const hasCaption = banner.images[0].captionOrImage.caption;
@@ -100,9 +100,9 @@ function Banner({ banner }: { banner: CaseStudy["galleries"][0] }) {
           as="p"
           style="h2"
           className="text-center"
-          componentStyle={{
-            color: colorData,
-          }}
+          // componentStyle={{
+          //   color: colorData,
+          // }}
         >
           {banner.images[0].captionOrImage.caption}
         </Typography>
@@ -121,7 +121,7 @@ function Banner({ banner }: { banner: CaseStudy["galleries"][0] }) {
       );
     }
     return null;
-  }, [banner.images, colorData]);
+  }, [banner.images]);
 
   return (
     <section ref={ref} className="relative overflow-hidden">
@@ -148,16 +148,20 @@ function Banner({ banner }: { banner: CaseStudy["galleries"][0] }) {
 
 function DefaultContainer({
   image,
-  disableBgClr,
+  isLast,
 }: {
   image: CaseStudy["galleries"][0];
-  disableBgClr: boolean;
+  isLast: boolean;
 }) {
-  const { data } = usePalette(image.images[0].url);
+  const { extractedColors, error } = usePalette(image.images[0].url);
   return (
     <Section
       style={{
-        backgroundColor: disableBgClr ? "" : data.lightMuted + "50",
+        backgroundColor: isLast
+          ? "white"
+          : error
+          ? ""
+          : extractedColors?.[4] + "25",
       }}
     >
       <Container className="relative overflow-hidden aspect-[16/9]  max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -181,11 +185,14 @@ export default function Gallery({
 }) {
   return (
     <>
-      {gallery?.map((image, index) => {
+      {gallery?.map((image, index, self) => {
         switch (image.layout) {
           case "defaultContainer":
             return (
-              <DefaultContainer image={image} disableBgClr={index % 2 === 0} />
+              <DefaultContainer
+                image={image}
+                isLast={self.length - 1 === index}
+              />
             );
           case "banner":
             return <Banner banner={image} />;

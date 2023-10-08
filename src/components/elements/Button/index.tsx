@@ -13,6 +13,7 @@ export type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   variant?: ButtonVariants;
   href?: string;
   animateAttrs?: AnimationProps;
+  target?: string;
 };
 
 export const variantStyles = {
@@ -28,6 +29,7 @@ export function Button({
   className,
   href,
   animateAttrs,
+  target,
   ...props
 }: ButtonProps) {
   className = twMerge(
@@ -40,7 +42,9 @@ export function Button({
 
   if (href) {
     const linkProps = props as React.ComponentPropsWithoutRef<"a">;
-    return <Link href={href} className={className} {...linkProps} />;
+    return (
+      <Link target={target} href={href} className={className} {...linkProps} />
+    );
   }
 
   return (

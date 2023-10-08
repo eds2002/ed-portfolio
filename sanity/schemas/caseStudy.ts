@@ -24,6 +24,12 @@ const caseStudy = {
       },
     },
     {
+      name: "website",
+      title: "Website Link",
+      type: "string",
+      description: "The website link you would like to showcase.",
+    },
+    {
       name: "service",
       title: "Service",
       type: "string",

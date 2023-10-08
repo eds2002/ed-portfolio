@@ -4,6 +4,7 @@ export default groq`
   _id,
   _type,
   title,
+  website,
   "slug": {
     _type,
     current

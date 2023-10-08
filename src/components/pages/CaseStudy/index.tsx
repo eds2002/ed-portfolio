@@ -21,6 +21,7 @@ export default function CaseStudyPage({ data }: { data: CaseStudy }) {
         duration={data.projectDuration}
         headquarters={data.headquarters}
         paragraph={data.projectDescription}
+        website={data.website}
       />
       <Gallery gallery={data.galleries} />
       <Footer />

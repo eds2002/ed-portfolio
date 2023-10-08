@@ -1,3 +1,4 @@
+import { Button } from "@/components/elements/Button";
 import Divider from "@/components/elements/Divider";
 import Typography from "@/components/elements/Typography";
 import Container from "@/components/layout/Container";
@@ -54,6 +55,7 @@ interface Props {
   duration: string;
   headquarters: string;
   paragraph: CaseStudy["projectDescription"];
+  website: string;
 }
 export default function ProjectInformation({
   client,
@@ -62,6 +64,7 @@ export default function ProjectInformation({
   duration,
   headquarters,
   paragraph,
+  website,
 }: Props) {
   // Refactor this when you get the chance.
   const clientDetails = [
@@ -127,10 +130,28 @@ export default function ProjectInformation({
               </Typography>
             </div>
           ))}
+          <Button
+            target="_blank"
+            href={website}
+            className="bg-zinc-200 hover:bg-zinc-300 md:hidden flex items-center justify-center"
+          >
+            <Typography as="span" style="bodyTwo">
+              Visit Website &rarr;
+            </Typography>
+          </Button>
         </Section>
       </aside>
-      <Section className="space-y-6 flex flex-col flex-1 md:block hidden">
+      <Section className="space-y-6  flex-col flex-1 md:block hidden">
         <RenderContent blocks={paragraph} />
+        <Button
+          target="_blank"
+          href={website}
+          className="bg-zinc-200 hover:bg-zinc-300"
+        >
+          <Typography as="span" style="bodyTwo">
+            Visit Website &rarr;
+          </Typography>
+        </Button>
       </Section>
     </Container>
   );

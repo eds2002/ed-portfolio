@@ -2,6 +2,7 @@ export interface CaseStudy {
   _id?: string;
   _type: "caseStudy";
   title: string;
+  website:string;
   slug: {
     _type: "slug";
     current: string;
